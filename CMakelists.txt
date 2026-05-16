@@ -1,1 +1,14 @@
+cmake_minimum_required(VERSION 3.10)
+project(CalabozoOscuro)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+add_executable(dungeon
+    src/main.cpp
+    src/mapa.cpp
+    src/juego.cpp
+    src/utilidades.cpp
+)
+
+target_include_directories(dungeon PRIVATE include)
