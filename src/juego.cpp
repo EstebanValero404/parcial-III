@@ -185,6 +185,21 @@ void pantallaFin(bool victoria, int vidas) {
     std::cout << "\nPresiona cualquier tecla para salir...\n";
     leerTecla();
 }
+static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
+    jugador->vida--;
+    danioReciente = true;
+    bool respawnOk = false;
+    for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
+        for (int c = 1; c < COLS-1 && !respawnOk; c++) {
+            if (habitaciones[jugador->habitacionActual].mapa[f][c] != '#') {
+                jugador->pos = {f, c};
+                respawnOk = true;
+            }
+        }
+    }
+    if (jugador->vida <= 0)
+        juegoActivo = false;
+}
 void correrJuego() {
     pantallaInicio();
 
@@ -210,23 +225,10 @@ void correrJuego() {
         moverJugador(&jugador, tecla);
 
 if (hayColisionEnemigo(&jugador)) {
-    jugador.vida--;
-    danioReciente = true;
-    bool respawnOk = false;
-    for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
-        for (int c = 1; c < COLS-1 && !respawnOk; c++) {
-            if (habitaciones[jugador.habitacionActual].mapa[f][c] != '#') {
-                jugador.pos = {f, c};
-                respawnOk = true;
-            }
-        }
-    }
-    if (jugador.vida <= 0)
-        juegoActivo = false;
+    aplicarDanio(&jugador, danioReciente, juegoActivo);
+    continue;
 }
-
 recogerObjeto(&jugador);
-
 if (verificarVictoria(&jugador)) {
     victoria    = true;
     juegoActivo = false;
@@ -236,19 +238,7 @@ if (verificarVictoria(&jugador)) {
 moverEnemigos(&jugador);
 
 if (hayColisionEnemigo(&jugador)) {
-    jugador.vida--;
-    danioReciente = true;
-    bool respawnOk = false;
-    for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
-        for (int c = 1; c < COLS-1 && !respawnOk; c++) {
-            if (habitaciones[jugador.habitacionActual].mapa[f][c] != '#') {
-                jugador.pos = {f, c};
-                respawnOk = true;
-            }
-        }
-    }
-    if (jugador.vida <= 0)
-        juegoActivo = false;
+    aplicarDanio(&jugador, danioReciente, juegoActivo);
 }
     }
     pantallaFin(victoria, jugador.vida);
