@@ -1,18 +1,50 @@
 #include "../include/utilidades.h"
-#ifdef _WIN32
-char leerTecla() {
-    return (char)_getch();
+#include <SDL.h>
+SDL_Window*   gVentana  = nullptr;
+SDL_Renderer* gRenderer = nullptr;
+
+bool iniciarSDL() {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) return false;
+
+    gVentana = SDL_CreateWindow(
+        "Calabozo Oscuro",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+        ANCHO_VENTANA, ALTO_VENTANA, 0
+    );
+    if (!gVentana) return false;
+
+    gRenderer = SDL_CreateRenderer(gVentana, -1, SDL_RENDERER_ACCELERATED);
+    if (!gRenderer) return false;
+
+    return true;
 }
-#else
-char leerTecla() {
-    struct termios oldt, newt;
-    char ch;
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    read(STDIN_FILENO, &ch, 1);
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    return ch;
+
+void cerrarSDL() {
+    SDL_DestroyRenderer(gRenderer);
+    SDL_DestroyWindow(gVentana);
+    SDL_Quit();
 }
-#endif
+
+void dibujarRect(int x, int y, int w, int h, Uint8 r, Uint8 g, Uint8 b) {
+    SDL_SetRenderDrawColor(gRenderer, r, g, b, 255);
+    SDL_Rect rect = {x, y, w, h};
+    SDL_RenderFillRect(gRenderer, &rect);
+}
+
+char leerTecla() {
+    SDL_Event e;
+    while (SDL_WaitEvent(&e)) {
+        if (e.type == SDL_QUIT) return 'q';
+        if (e.type == SDL_KEYDOWN) {
+            switch (e.key.keysym.sym) {
+                case SDLK_w: case SDLK_UP:    return 'w';
+                case SDLK_s: case SDLK_DOWN:  return 's';
+                case SDLK_a: case SDLK_LEFT:  return 'a';
+                case SDLK_d: case SDLK_RIGHT: return 'd';
+                case SDLK_q: case SDLK_ESCAPE: return 'q';
+                default: return ' ';
+            }
+        }
+    }
+    return ' ';
+}
