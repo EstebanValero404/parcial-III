@@ -62,7 +62,15 @@ bool moverJugador(Jugador* jugador, char tecla) {
 
     return (destino != -1);
 }
-
+static bool celdaOcupadaPorEnemigo(int fila, int col, int ignorarIdx) {
+    for (int i = 0; i < totalEnemigos; i++) {
+        if (i == ignorarIdx) continue;
+        if (!enemigos[i].activo) continue;
+        if (enemigos[i].pos.fila == fila && enemigos[i].pos.col == col)
+            return true;
+    }
+    return false;
+}
 void moverEnemigos(Jugador* jugador) {
     int hab = jugador->habitacionActual;
 
@@ -85,17 +93,18 @@ void moverEnemigos(Jugador* jugador) {
         int nf = e->pos.fila + dr;
         int nc = e->pos.col  + dc;
 
-        if (posValidaEnemigo(hab, nf, nc)) {
-            e->pos.fila = nf;
-            e->pos.col  = nc;
-        } else if (posValidaEnemigo(hab, e->pos.fila + dr, e->pos.col)) {
-            e->pos.fila += dr;
-        } else if (posValidaEnemigo(hab, e->pos.fila, e->pos.col + dc)) {
-            e->pos.col  += dc;
-        }
+        if (posValidaEnemigo(hab, nf, nc) && !celdaOcupadaPorEnemigo(nf, nc, i)) {
+    e->pos.fila = nf;
+    e->pos.col  = nc;
+} else if (posValidaEnemigo(hab, e->pos.fila + dr, e->pos.col) && 
+           !celdaOcupadaPorEnemigo(e->pos.fila + dr, e->pos.col, i)) {
+    e->pos.fila += dr;
+} else if (posValidaEnemigo(hab, e->pos.fila, e->pos.col + dc) && 
+           !celdaOcupadaPorEnemigo(e->pos.fila, e->pos.col + dc, i)) {
+    e->pos.col  += dc;
+}
     }
 }
-
 bool hayColisionEnemigo(Jugador* jugador) {
     for (int i = 0; i < totalEnemigos; i++) {
         Enemigo* e = &enemigos[i];
