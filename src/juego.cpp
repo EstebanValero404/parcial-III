@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../include/tipos.h"
 #include "../include/mapa.h"
 #include "../include/juego.h"
@@ -136,54 +135,11 @@ bool verificarVictoria(Jugador* jugador) {
     return false;
 }
 void pantallaInicio() {
-    LIMPIAR;
-    std::cout << "==========================================\n";
-    std::cout << "         CALABOZO OSCURO  v1.0            \n";
-    std::cout << "    Esteban Valero & Sebastian Gonzales   \n";
-    std::cout << "==========================================\n\n";
-    std::cout << "Eres [ @ ] atrapado en un calabozo.\n";
-    std::cout << "Busca la llave [ K ] y llega a la salida [ E ].\n";
-    std::cout << "Evita a los fantasmas [ G ] y esqueletos [ S ]!\n\n";
-    std::cout << "Controles:\n";
-    std::cout << "  W / A / S / D  ->  moverse\n";
-    std::cout << "  Q              ->  salir\n\n";
-    std::cout << "Mapa de habitaciones:\n";
-    std::cout << "  [1]-[2]-[3]\n";
-    std::cout << "            |\n";
-    std::cout << "  [4]-[5]-[6]\n\n";
-    std::cout << "  @ empieza en hab 1 | K en hab 5 | E en hab 4\n\n";
-    std::cout << "Presiona cualquier tecla para comenzar...\n";
-    leerTecla();
+    SDL_Delay(100);
 }
-void mostrarEstado(Jugador* jugador, bool danio) {
-    std::cout << "Vida: ";
-    for (int i = 0; i < jugador->vida; i++) std::cout << "[v]";
-    for (int i = jugador->vida; i < 3; i++) std::cout << "[ ]";
-    std::cout << "  Inventario: ";
-    if (jugador->tieneObjeto) std::cout << "[LLAVE]";
-    else                      std::cout << "[vacio]";
-    std::cout << "\n";
-    if (danio) std::cout << "*** Recibiste dano! Perdiste una vida ***\n";
-    else       std::cout << "\n";
-    std::cout << "Leyenda: @=Tu  G=Fantasma(rapido)  S=Esqueleto(lento)  K=Llave  E=Salida\n";
-    std::cout << "Meta: recoge K y llega a E  |  Controles: WASD  Q=Salir\n";
-}
+
 void pantallaFin(bool victoria, int vidas) {
-    LIMPIAR;
-    if (victoria) {
-        std::cout << "==========================================\n";
-        std::cout << "      *** VICTORIA! ESCAPASTE! ***        \n";
-        std::cout << "==========================================\n";
-        std::cout << "Has logrado salir del calabozo oscuro!\n";
-        std::cout << "Vidas restantes: " << vidas << "/3\n";
-    } else {
-        std::cout << "==========================================\n";
-        std::cout << "      *** DERROTA! HAS MUERTO! ***        \n";
-        std::cout << "==========================================\n";
-        std::cout << "El calabozo oscuro te ha vencido...\n";
-    }
-    std::cout << "\nPresiona cualquier tecla para salir...\n";
-    leerTecla();
+    SDL_Delay(2000);
 }
 static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
     jugador->vida--;
@@ -214,11 +170,7 @@ void correrJuego() {
     bool danioReciente = false;
 
     while (juegoActivo) {
-        LIMPIAR;
         dibujarHabitacion(jugador.habitacionActual, &jugador);
-        mostrarEstado(&jugador, danioReciente);
-        danioReciente = false;
-
         char tecla = leerTecla();
         if (tecla == 'q' || tecla == 'Q') break;
 
