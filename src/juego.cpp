@@ -212,10 +212,17 @@ void correrJuego() {
         if (hayColisionEnemigo(&jugador)) {
             jugador.vida--;
             danioReciente = true;
-            jugador.pos   = {FILAS / 2, COLS / 2};
-            if (jugador.vida <= 0)
-                juegoActivo = false;
+            bool respawnOk = false;
+    for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
+        for (int c = 1; c < COLS-1 && !respawnOk; c++) {
+            if (habitaciones[jugador.habitacionActual].mapa[f][c] != '#') {
+                jugador.pos = {f, c};
+                respawnOk = true;
+            }
         }
     }
-    pantallaFin(victoria, jugador.vida);
-}
+    if (jugador.vida <= 0)     
+        juegoActivo = false;
+}                              
+pantallaFin(victoria, jugador.vida);
+    }
