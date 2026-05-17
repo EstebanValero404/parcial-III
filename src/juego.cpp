@@ -208,20 +208,11 @@ void correrJuego() {
         if (tecla == 'q' || tecla == 'Q') break;
 
         moverJugador(&jugador, tecla);
-        recogerObjeto(&jugador);
 
-        if (verificarVictoria(&jugador)) {
-            victoria    = true;
-            juegoActivo = false;
-            continue;
-        }
-
-        moverEnemigos(&jugador);
-
-        if (hayColisionEnemigo(&jugador)) {
-            jugador.vida--;
-            danioReciente = true;
-            bool respawnOk = false;
+if (hayColisionEnemigo(&jugador)) {
+    jugador.vida--;
+    danioReciente = true;
+    bool respawnOk = false;
     for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
         for (int c = 1; c < COLS-1 && !respawnOk; c++) {
             if (habitaciones[jugador.habitacionActual].mapa[f][c] != '#') {
@@ -230,8 +221,35 @@ void correrJuego() {
             }
         }
     }
-    if (jugador.vida <= 0)     
+    if (jugador.vida <= 0)
         juegoActivo = false;
-}                              
-pantallaFin(victoria, jugador.vida);
+}
+
+recogerObjeto(&jugador);
+
+if (verificarVictoria(&jugador)) {
+    victoria    = true;
+    juegoActivo = false;
+    continue;
+}
+
+moverEnemigos(&jugador);
+
+if (hayColisionEnemigo(&jugador)) {
+    jugador.vida--;
+    danioReciente = true;
+    bool respawnOk = false;
+    for (int f = 1; f < FILAS-1 && !respawnOk; f++) {
+        for (int c = 1; c < COLS-1 && !respawnOk; c++) {
+            if (habitaciones[jugador.habitacionActual].mapa[f][c] != '#') {
+                jugador.pos = {f, c};
+                respawnOk = true;
+            }
+        }
     }
+    if (jugador.vida <= 0)
+        juegoActivo = false;
+}
+    }
+    pantallaFin(victoria, jugador.vida);
+}
