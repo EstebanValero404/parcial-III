@@ -76,20 +76,17 @@ void moverEnemigos(Jugador* jugador) {
     for (int i = 0; i < totalEnemigos; i++) {
         Enemigo* e = &enemigos[i];
 
-       if (!e->activo || e->habitacion != hab) continue;
+        if (!e->activo || e->habitacion != hab) continue;
 
-if (e->tipo == ESQUELETO) {
-    e->contadorTurno++;
-    if (e->contadorTurno % 2 != 0) continue;
-}
+        if (e->tipo == FANTASMA) {
+            e->contadorTurno++;
+        if (e->contadorTurno % 2 != 0) continue;
+    }
+    if (e->tipo == ESQUELETO) {
+        e->contadorTurno++;
+    if (e->contadorTurno % 4 != 0) continue;
+    }
 
-if (e->tipo == FANTASMA) {
-    int distancia = abs(e->pos.fila - jugador->pos.fila) + 
-                    abs(e->pos.col  - jugador->pos.col);
-    if (distancia > 8) continue;
-    e->contadorTurno++;
-    if (e->contadorTurno % 2 != 0) continue;
-}
         int dr = 0, dc = 0;
         if (e->pos.fila < jugador->pos.fila) dr =  1;
         if (e->pos.fila > jugador->pos.fila) dr = -1;
@@ -146,7 +143,23 @@ void pantallaInicio() {
 }
 
 void pantallaFin(bool victoria, int vidas) {
-    SDL_Delay(2000);
+    bool esperando = true;
+    while (esperando) {
+        if (victoria) {
+            dibujarRect(0, 0, ANCHO_VENTANA, ALTO_VENTANA, 0, 100, 0);
+            dibujarRect(100, 150, 500, 60, 0, 200, 0);
+            dibujarRect(150, 250, 400, 60, 0, 180, 0);
+        } else {
+            dibujarRect(0, 0, ANCHO_VENTANA, ALTO_VENTANA, 100, 0, 0);
+            dibujarRect(100, 150, 500, 60, 200, 0, 0);
+            dibujarRect(150, 250, 400, 60, 180, 0, 0);
+        }
+        SDL_RenderPresent(gRenderer);
+        char tecla = leerTecla();
+        if (tecla == 'q' || tecla == 'Q') {
+            esperando = false;
+        }
+    }
 }
 static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
     jugador->vida--;
@@ -162,6 +175,14 @@ static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActiv
     }
     if (jugador->vida <= 0)
         juegoActivo = false;
+}
+void soltarObjeto(Jugador* jugador) {
+    Habitacion* hab = &habitaciones[jugador->habitacionActual];
+    if (jugador->tieneObjeto && !hab->tieneObjeto) {
+        jugador->tieneObjeto = false;
+        hab->tieneObjeto     = true;
+        hab->posObjeto       = jugador->pos;
+    }
 }
 void correrJuego() {
     pantallaInicio();
@@ -179,6 +200,10 @@ void correrJuego() {
     while (juegoActivo) {
         dibujarHabitacion(jugador.habitacionActual, &jugador);
         char tecla = leerTecla();
+        if (tecla == 'e' || tecla == 'E') {
+            soltarObjeto(&jugador);
+        continue;
+        }
         if (tecla == 'q' || tecla == 'Q') break;
 
         moverJugador(&jugador, tecla);
