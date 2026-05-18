@@ -6,6 +6,6 @@ bool hayColisionEnemigo(Jugador* jugador);
 void recogerObjeto(Jugador* jugador);
 bool verificarVictoria(Jugador* jugador);
 void pantallaInicio();
-void mostrarEstado(Jugador* jugador, bool danio);
 void pantallaFin(bool victoria, int vidas);
+void soltarObjeto(Jugador* jugador);
 void correrJuego();
