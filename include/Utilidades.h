@@ -1,5 +1,9 @@
 #pragma once
-#include <SDL.h>
+#ifdef _WIN32
+    #include <SDL.h>
+#else
+    #include <SDL2/SDL.h>
+#endif
 #define TILE_SIZE 32
 #define ANCHO_VENTANA (22 * TILE_SIZE)
 #define ALTO_VENTANA  (12 * TILE_SIZE)
