@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.10)
+project(CalabozoOscuro)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set(SDL2_DIR "${CMAKE_SOURCE_DIR}/SDL2")
+include_directories(${SDL2_DIR}/include/SDL2)
+link_directories(${SDL2_DIR}/lib)
+
+add_executable(dungeon
+    src/main.cpp
+    src/mapa.cpp
+    src/juego.cpp
+    src/utilidades.cpp
+)
+target_include_directories(dungeon PRIVATE include)
+target_link_libraries(dungeon mingw32 SDL2main SDL2.dll)

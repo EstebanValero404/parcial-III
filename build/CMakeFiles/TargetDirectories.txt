@@ -1,0 +1,3 @@
+C:/Users/imest/Desktop/parcial-III-main/build/CMakeFiles/dungeon.dir
+C:/Users/imest/Desktop/parcial-III-main/build/CMakeFiles/edit_cache.dir
+C:/Users/imest/Desktop/parcial-III-main/build/CMakeFiles/rebuild_cache.dir
