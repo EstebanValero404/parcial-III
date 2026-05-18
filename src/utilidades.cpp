@@ -1,5 +1,4 @@
 #include "../include/utilidades.h"
-#include <SDL.h>
 SDL_Window*   gVentana  = nullptr;
 SDL_Renderer* gRenderer = nullptr;
 
