@@ -8,7 +8,8 @@ Desarrollos Innovadores:
 2. Sistema de detección por distancia para enemigos
 3. Pantallas de victoria y derrota interactivas con opción de reinicio
 4. Corrección de bugs: spawn seguro, anti-apilamiento de enemigos, orden de colisiones
-5. Compatibilidad multiplataforma Windows/Linux/Mac
+5. Vidas restantes en la pantalla
+6. Compatibilidad multiplataforma Windows/Linux/Mac
 Compilación:
 
 Windows
