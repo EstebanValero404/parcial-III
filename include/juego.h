@@ -7,4 +7,5 @@ void recogerObjeto(Jugador* jugador);
 bool verificarVictoria(Jugador* jugador);
 void pantallaInicio();
 void pantallaFin(bool victoria, int vidas);
+void soltarObjeto(Jugador* jugador);
 void correrJuego();
