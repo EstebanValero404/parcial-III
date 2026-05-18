@@ -76,13 +76,20 @@ void moverEnemigos(Jugador* jugador) {
     for (int i = 0; i < totalEnemigos; i++) {
         Enemigo* e = &enemigos[i];
 
-        if (!e->activo || e->habitacion != hab) continue;
+       if (!e->activo || e->habitacion != hab) continue;
 
-        if (e->tipo == ESQUELETO) {
-            e->contadorTurno++;
-            if (e->contadorTurno % 2 != 0) continue;
-        }
+if (e->tipo == ESQUELETO) {
+    e->contadorTurno++;
+    if (e->contadorTurno % 2 != 0) continue;
+}
 
+if (e->tipo == FANTASMA) {
+    int distancia = abs(e->pos.fila - jugador->pos.fila) + 
+                    abs(e->pos.col  - jugador->pos.col);
+    if (distancia > 8) continue;
+    e->contadorTurno++;
+    if (e->contadorTurno % 2 != 0) continue;
+}
         int dr = 0, dc = 0;
         if (e->pos.fila < jugador->pos.fila) dr =  1;
         if (e->pos.fila > jugador->pos.fila) dr = -1;
