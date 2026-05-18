@@ -1,4 +1,4 @@
-1. Gráficos con SDL2
+Gráficos con SDL2
 ¿Para qué se implementó?
 Para reemplazar el sistema de caracteres ASCII por una ventana gráfica real con 
 colores y sprites, mejorando significativamente la experiencia visual del juego 
