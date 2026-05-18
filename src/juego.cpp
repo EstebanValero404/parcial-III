@@ -143,7 +143,23 @@ void pantallaInicio() {
 }
 
 void pantallaFin(bool victoria, int vidas) {
-    SDL_Delay(2000);
+    bool esperando = true;
+    while (esperando) {
+        if (victoria) {
+            dibujarRect(0, 0, ANCHO_VENTANA, ALTO_VENTANA, 0, 100, 0);
+            dibujarRect(100, 150, 500, 60, 0, 200, 0);
+            dibujarRect(150, 250, 400, 60, 0, 180, 0);
+        } else {
+            dibujarRect(0, 0, ANCHO_VENTANA, ALTO_VENTANA, 100, 0, 0);
+            dibujarRect(100, 150, 500, 60, 200, 0, 0);
+            dibujarRect(150, 250, 400, 60, 180, 0, 0);
+        }
+        SDL_RenderPresent(gRenderer);
+        char tecla = leerTecla();
+        if (tecla == 'q' || tecla == 'Q') {
+            esperando = false;
+        }
+    }
 }
 static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
     jugador->vida--;
