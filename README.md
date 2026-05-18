@@ -10,6 +10,7 @@ Desarrollos Innovadores:
 4. Corrección de bugs: spawn seguro, anti-apilamiento de enemigos, orden de colisiones
 5. Compatibilidad multiplataforma Windows/Linux/Mac
 Compilación:
+
 Windows
 ```bash
 mingw32-make
