@@ -76,9 +76,15 @@ void inicializarHabitaciones() {
 void inicializarEnemigos() {
     totalEnemigos = 0;
     enemigos[totalEnemigos++] = {{2, 18}, FANTASMA,  true, 0, 1};
-    enemigos[totalEnemigos++] = {{8,  3}, FANTASMA,  true, 0, 5};
+    enemigos[totalEnemigos++] = {{8,  3}, FANTASMA,  true, 0, 1};
     enemigos[totalEnemigos++] = {{9, 15}, ESQUELETO, true, 0, 2};
-    enemigos[totalEnemigos++] = {{2, 15}, ESQUELETO, true, 0, 4};
+    enemigos[totalEnemigos++] = {{2, 15}, ESQUELETO, true, 0, 2};
+    enemigos[totalEnemigos++] = {{3,  5}, FANTASMA,  true, 0, 2};
+    enemigos[totalEnemigos++] = {{7, 10}, ESQUELETO, true, 0, 3};
+    enemigos[totalEnemigos++] = {{8, 10}, ESQUELETO, true, 0, 3};
+    enemigos[totalEnemigos++] = {{10, 5}, FANTASMA, true, 0, 4};
+    enemigos[totalEnemigos++] = {{2, 15}, FANTASMA, true, 0, 5};
+    enemigos[totalEnemigos++] = {{10, 2}, ESQUELETO, true, 0, 5};
 }
 
 void dibujarHabitacion(int habitacionActual, Jugador* jugador) {
