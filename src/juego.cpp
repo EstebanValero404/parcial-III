@@ -142,7 +142,7 @@ void pantallaInicio() {
     SDL_Delay(100);
 }
 
-void pantallaFin(bool victoria, int vidas) {
+bool pantallaFin(bool victoria, int vidas) {
     bool esperando = true;
     while (esperando) {
         if (victoria) {
@@ -157,7 +157,7 @@ void pantallaFin(bool victoria, int vidas) {
         SDL_RenderPresent(gRenderer);
         char tecla = leerTecla();
         if (tecla == 'q' || tecla == 'Q') {
-            esperando = false;
+            return = false;
         }
         if (tecla == 'k' || tecla == 'K') {
             return true;
@@ -189,13 +189,7 @@ void soltarObjeto(Jugador* jugador) {
     }
 }
 void correrJuego() {
-    bool jugarDeNuevo = true;
-
-    while (jugarDeNuevo) {
-        pantallaInicio();
-        inicializarHabitaciones();
-        inicializarEnemigos();
-
+    pantallaInicio();
     Jugador jugador;
     jugador.pos              = {PUERTA_FILA1, 2};
     jugador.tieneObjeto      = false;
@@ -235,4 +229,5 @@ if (hayColisionEnemigo(&jugador)) {
 }
     }
     pantallaFin(victoria, jugador.vida);
+  }
 }
