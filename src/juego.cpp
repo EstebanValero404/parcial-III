@@ -159,7 +159,11 @@ void pantallaFin(bool victoria, int vidas) {
         if (tecla == 'q' || tecla == 'Q') {
             esperando = false;
         }
+        if (tecla == 'k' || tecla == 'K') {
+            return true;
+        }
     }
+    return false;
 }
 static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
     jugador->vida--;
@@ -185,7 +189,12 @@ void soltarObjeto(Jugador* jugador) {
     }
 }
 void correrJuego() {
-    pantallaInicio();
+    bool jugarDeNuevo = true;
+
+    while (jugarDeNuevo) {
+        pantallaInicio();
+        inicializarHabitaciones();
+        inicializarEnemigos();
 
     Jugador jugador;
     jugador.pos              = {PUERTA_FILA1, 2};
