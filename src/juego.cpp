@@ -142,7 +142,8 @@ void pantallaInicio() {
     SDL_Delay(100);
 }
 
-bool pantallaFin(bool victoria, int vidas) {
+void pantallaFin(bool victoria, int vidas) {
+    SDL_Delay(2000);
     bool esperando = true;
     while (esperando) {
         if (victoria) {
@@ -157,13 +158,9 @@ bool pantallaFin(bool victoria, int vidas) {
         SDL_RenderPresent(gRenderer);
         char tecla = leerTecla();
         if (tecla == 'q' || tecla == 'Q') {
-            return = false;
-        }
-        if (tecla == 'k' || tecla == 'K') {
-            return true;
+            esperando = false;
         }
     }
-    return false;
 }
 static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActivo) {
     jugador->vida--;
