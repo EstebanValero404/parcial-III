@@ -6,7 +6,7 @@ videojuego en c++
 Desarrollos Innovadores: 
 1. Gráficos con SDL2 — ventana gráfica con sprites de colores
 2. Sistema de detección por distancia para enemigos
-3. Pantallas de victoria y derrota interactivas con opción de reinicio
+3. Pantallas de victoria y derrota interactivas con opción de reinicio- presiona K para volver a jugar sin cerrar la aplicación, y presiona q para cerrar la apliacion
 4. Corrección de bugs: spawn seguro, anti-apilamiento de enemigos, orden de colisiones
 5. Vidas restantes en la pantalla
 6. Compatibilidad multiplataforma Windows/Linux/Mac
