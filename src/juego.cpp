@@ -227,4 +227,3 @@ if (hayColisionEnemigo(&jugador)) {
     }
     pantallaFin(victoria, jugador.vida);
   }
-}
