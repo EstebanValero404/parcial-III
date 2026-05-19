@@ -20,7 +20,7 @@ Un juego que se cierra al terminar obliga al jugador a volver a ejecutarlo manua
 
 ¿Cómo se llevó a cabo su implementación?
 Los cambios se realizaron en:
-src/juego.cpp → función correrJuego(): se convirtió en un loop externo que reinicia el estado completo del juego al presionar cualquier tecla en la pantalla final.
+src/juego.cpp → función correrJuego(): se convirtió en un loop externo que reinicia el estado completo del juego al presionar q tecla en la pantalla final.
 src/juego.cpp → función pantallaFin(): se modificó para retornar un booleano indicando si el jugador quiere jugar de nuevo o salir.
 include/juego.h: se actualizó la declaración de pantallaFin() cambiando el tipo de retorno de void a bool.
 
