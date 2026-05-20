@@ -185,10 +185,20 @@ static void aplicarDanio(Jugador* jugador, bool& danioReciente, bool& juegoActiv
 }
 void soltarObjeto(Jugador* jugador) {
     Habitacion* hab = &habitaciones[jugador->habitacionActual];
-    if (jugador->tieneObjeto && !hab->tieneObjeto) {
-        jugador->tieneObjeto = false;
-        hab->tieneObjeto     = true;
-        hab->posObjeto       = jugador->pos;
+    if (!jugador->tieneObjeto || hab->tieneObjeto) return;
+    int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+    
+    for (int i = 0; i < 4; i++) {
+        int nf = jugador->pos.fila + dirs[i][0];
+        int nc = jugador->pos.col  + dirs[i][1];
+        
+        if (nf > 0 && nf < FILAS-1 && nc > 0 && nc < COLS-1 &&
+            hab->mapa[nf][nc] != '#') {
+            jugador->tieneObjeto = false;
+            hab->tieneObjeto     = true;
+            hab->posObjeto       = {nf, nc};
+            return;
+        }
     }
 }
 void correrJuego() {
@@ -211,9 +221,13 @@ void correrJuego() {
         dibujarHabitacion(jugador.habitacionActual, &jugador);
         char tecla = leerTecla();
         if (tecla == 'e' || tecla == 'E') {
-            soltarObjeto(&jugador);
+        soltarObjeto(&jugador);
         continue;
-        }
+}
+if (tecla == 'f' || tecla == 'F') {
+    recogerObjeto(&jugador);
+    continue;
+}
         if (tecla == 'q' || tecla == 'Q') break;
 
         moverJugador(&jugador, tecla);
