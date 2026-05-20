@@ -220,7 +220,7 @@ void correrJuego() {
     while (juegoActivo) {
         dibujarHabitacion(jugador.habitacionActual, &jugador);
         char tecla = leerTecla();
-        if (tecla == 'e' || tecla == 'E') {
+if (tecla == 'e' || tecla == 'E') {
     soltarObjeto(&jugador);
     continue;
 }
