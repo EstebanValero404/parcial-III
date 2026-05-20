@@ -1,6 +1,6 @@
 CXX      = g++
-CXXFLAGS = CXXFLAGS = -std=c++17 -I"calabozo oscuro/include" -Wall
-SRCS     = SRCS = "calabozo oscuro/src/main.cpp" "calabozo oscuro/src/mapa.cpp" "calabozo oscuro/src/juego.cpp" "calabozo oscuro/src/utilidades.cpp"
+SRCS = calabozo_oscuro/src/main.cpp calabozo_oscuro/src/mapa.cpp calabozo_oscuro/src/juego.cpp calabozo_oscuro/src/utilidades.cpp
+CXXFLAGS = -std=c++17 -Icalabozo_oscuro/include -Wall
 TARGET   = dungeon
 
 ifeq ($(OS), Windows_NT)
