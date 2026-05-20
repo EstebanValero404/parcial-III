@@ -42,6 +42,8 @@ char leerTecla() {
                 case SDLK_d: case SDLK_RIGHT: return 'd';
                 case SDLK_q: case SDLK_ESCAPE: return 'q';
                 case SDLK_k: case SDLK_RETURN: return 'K';
+                case SDLK_e: return 'e';
+                case SDLK_f: return 'f';
                 default: return ' ';
             }
         }
